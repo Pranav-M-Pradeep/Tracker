@@ -3,6 +3,8 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ExpenseDashboard from "@/components/ExpenseDashboard";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Expenses | Tracker.",
 };

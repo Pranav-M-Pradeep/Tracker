@@ -6,6 +6,8 @@ import { format } from "date-fns";
 import styles from "./page.module.css";
 import { MonitorSmartphone, ShieldCheck } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Profile | Tracker.",
 };
