@@ -1,0 +1,452 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  margin-top: 0.2rem;
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.downloadBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+/* ── Month Navigator ── */
+.monthNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.navBtn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.navBtn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.monthLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 160px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+/* ── Summary Cards ── */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.summaryCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid transparent;
+}
+
+.incomeCard {
+  background: rgba(16,185,129,0.08);
+  border-color: rgba(16,185,129,0.2);
+}
+.incomeCard .cardIcon { color: #34d399; }
+.incomeCard .cardAmount { color: #34d399; }
+
+.expenseCard {
+  background: rgba(239,68,68,0.08);
+  border-color: rgba(239,68,68,0.2);
+}
+.expenseCard .cardIcon { color: #f87171; }
+.expenseCard .cardAmount { color: #f87171; }
+
+.balanceCard {
+  background: rgba(168,85,247,0.08);
+  border-color: rgba(168,85,247,0.2);
+}
+.balanceCard .cardIcon { color: #a855f7; }
+.balanceCard .cardAmount { color: #a855f7; }
+
+.balanceNeg {
+  background: rgba(239,68,68,0.08);
+  border-color: rgba(239,68,68,0.2);
+}
+.balanceNeg .cardIcon { color: #f87171; }
+.balanceNeg .cardAmount { color: #f87171; }
+
+.cardLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.15rem;
+  white-space: nowrap;
+}
+.cardAmount {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* ── Add Buttons ── */
+.addBtns {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+
+.addIncome, .addExpense {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.addIncome {
+  background: rgba(16,185,129,0.15);
+  color: #34d399;
+  border: 1px solid rgba(16,185,129,0.25);
+}
+.addIncome:hover {
+  background: rgba(16,185,129,0.25);
+}
+
+.addExpense {
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.2);
+}
+.addExpense:hover {
+  background: rgba(239,68,68,0.22);
+}
+
+/* ── Transaction List ── */
+.txSection {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+.txSection::-webkit-scrollbar { width: 5px; }
+.txSection::-webkit-scrollbar-track { background: transparent; }
+.txSection::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+.txList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.txItem {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+.txItem:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.txIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.txIconIncome {
+  background: rgba(16,185,129,0.12);
+  color: #34d399;
+}
+.txIconExpense {
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+}
+
+.txDetails {
+  flex: 1;
+  min-width: 0;
+}
+.txDesc {
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txMeta {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 0.1rem;
+}
+
+.txRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.amountIncome {
+  font-weight: 700;
+  color: #34d399;
+  font-size: 0.95rem;
+}
+.amountExpense {
+  font-weight: 700;
+  color: #f87171;
+  font-size: 0.95rem;
+}
+
+.txActions {
+  display: flex;
+  gap: 0.35rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.txItem:hover .txActions {
+  opacity: 1;
+}
+
+.editBtn, .deleteBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.editBtn {
+  color: var(--text-secondary);
+}
+.editBtn:hover {
+  background: rgba(168,85,247,0.15);
+  color: var(--accent-1);
+}
+.deleteBtn {
+  color: var(--text-secondary);
+}
+.deleteBtn:hover {
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 2.5rem;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* ── Modal ── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.modalHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.closeBtn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.typeToggle {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.typeBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.typeBtnActiveIncome {
+  background: rgba(16,185,129,0.15);
+  color: #34d399;
+}
+.typeBtnActiveExpense {
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.select, .dateInput {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.select option {
+  background: #1a1a1a;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.cancelBtn {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cancelBtn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.saveIncome {
+  flex: 2;
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  box-shadow: 0 4px 12px rgba(16,185,129,0.3) !important;
+}
+.saveExpense {
+  flex: 2;
+}
