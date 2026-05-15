@@ -15,7 +15,7 @@ A beautiful, secure **Daily Planner & Expense Tracker** built with Next.js 14, P
 ## Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
-- **Database**: PostgreSQL via Prisma ORM
+- **Database**: MongoDB Atlas via Prisma ORM
 - **Auth**: NextAuth.js (JWT strategy)
 - **Styling**: Vanilla CSS Modules
 - **Animations**: Framer Motion
@@ -38,9 +38,9 @@ npm install
 cp .env.example .env
 ```
 
-Fill in `.env` with your PostgreSQL credentials and a NextAuth secret.
+Fill in `.env` with your MongoDB Atlas connection string and a NextAuth secret.
 
-> **Free PostgreSQL options**: [Neon](https://neon.tech) · [Supabase](https://supabase.com) · [Railway](https://railway.app)
+> **Free MongoDB**: Sign up at [mongodb.com/cloud/atlas](https://mongodb.com/cloud/atlas) — M0 free tier (512MB)
 
 ### 3. Push the database schema
 
@@ -66,18 +66,19 @@ Open [http://localhost:3000](http://localhost:3000) and register an account.
 
 | Variable | Value |
 |---|---|
-| `DATABASE_URL` | Your PostgreSQL pooled connection URL |
-| `DIRECT_URL` | Your PostgreSQL direct (non-pooled) URL |
+| `DATABASE_URL` | Your MongoDB Atlas connection string |
 | `NEXTAUTH_SECRET` | Run `openssl rand -base64 32` to generate |
 | `NEXTAUTH_URL` | Your Vercel deployment URL (e.g. `https://tracker.vercel.app`) |
 
 4. Click **Deploy** — Vercel will run `npm run build` automatically
 
-### Recommended free database: Neon
+### Recommended free database: MongoDB Atlas
 
-1. Sign up at [neon.tech](https://neon.tech)
-2. Create a project and copy the **Pooled connection string** → set as `DATABASE_URL`
-3. Copy the **Direct connection string** → set as `DIRECT_URL`
+1. Sign up at [mongodb.com/cloud/atlas](https://mongodb.com/cloud/atlas)
+2. Create a **free M0 cluster**
+3. Add `0.0.0.0/0` to IP allowlist (Network Access)
+4. Click **Connect → Drivers** and copy the connection string
+5. Replace `<password>` with your actual password and set as `DATABASE_URL`
 
 ---
 
