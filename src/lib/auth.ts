@@ -17,11 +17,13 @@ function generateToken() {
 }
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },
   pages: {
     signIn: "/login",
+    error: "/login",  // Redirect NextAuth errors to our own login page
   },
   providers: [
     CredentialsProvider({
