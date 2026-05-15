@@ -8,10 +8,13 @@ import styles from "./page.module.css";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-
-  if (session) {
-    redirect("/dashboard");
+  try {
+    const session = await getServerSession(authOptions);
+    if (session) {
+      redirect("/dashboard");
+    }
+  } catch {
+    // DB not reachable or env vars not set — just show the landing page
   }
 
   return (
