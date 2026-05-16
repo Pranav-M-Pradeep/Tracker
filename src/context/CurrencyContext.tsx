@@ -29,6 +29,7 @@ export const CURRENCIES: CurrencyInfo[] = [
   { code: "SGD", symbol: "S$", name: "Singapore Dollar" },
   { code: "AED", symbol: "د.إ", name: "UAE Dirham" },
   { code: "SAR", symbol: "﷼",  name: "Saudi Riyal" },
+  { code: "QAR", symbol: "﷼",  name: "Qatari Riyal" },
   { code: "BRL", symbol: "R$", name: "Brazilian Real" },
   { code: "MXN", symbol: "Mex$", name: "Mexican Peso" },
   { code: "KRW", symbol: "₩",  name: "South Korean Won" },
