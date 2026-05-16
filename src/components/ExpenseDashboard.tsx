@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { format, parseISO } from "date-fns";
 import styles from "./ExpenseDashboard.module.css";
+import { useCurrency } from "@/context/CurrencyContext";
 
 interface Transaction {
   id: string;
@@ -53,6 +54,7 @@ const defaultForm = (): FormState => ({
 });
 
 export default function ExpenseDashboard() {
+  const { formatAmount, currency } = useCurrency();
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth() + 1);
   const [year, setYear] = useState(today.getFullYear());
@@ -129,7 +131,7 @@ export default function ExpenseDashboard() {
     const payload = {
       amount: parseFloat(form.amount),
       description: form.description,
-      category: form.category || (form.type === "income" ? "Other" : "Other"),
+      category: form.category || "Other",
       type: form.type,
       date: form.date,
     };
@@ -142,9 +144,7 @@ export default function ExpenseDashboard() {
       });
       if (res.ok) {
         const updated = await res.json();
-        setTransactions((prev) =>
-          prev.map((t) => (t.id === editingId ? updated : t))
-        );
+        setTransactions((prev) => prev.map((t) => (t.id === editingId ? updated : t)));
       }
     } else {
       const res = await fetch("/api/expenses", {
@@ -154,7 +154,6 @@ export default function ExpenseDashboard() {
       });
       if (res.ok) {
         const added = await res.json();
-        // Only add to list if it belongs to the current month/year
         const d = new Date(added.date);
         if (d.getMonth() + 1 === month && d.getFullYear() === year) {
           setTransactions((prev) => [added, ...prev]);
@@ -181,20 +180,21 @@ export default function ExpenseDashboard() {
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(11);
-    doc.text(`Total Income:  $${totalIncome.toFixed(2)}`, 14, 32);
-    doc.text(`Total Expenses: $${totalExpense.toFixed(2)}`, 14, 39);
-    doc.text(`Net Balance:   $${netBalance.toFixed(2)}`, 14, 46);
+    doc.text(`Currency: ${currency.name} (${currency.code})`, 14, 28);
+    doc.text(`Total Income:   ${formatAmount(totalIncome)}`, 14, 36);
+    doc.text(`Total Expenses: ${formatAmount(totalExpense)}`, 14, 43);
+    doc.text(`Net Balance:    ${formatAmount(netBalance)}`, 14, 50);
 
     const rows = transactions.map((t) => [
       format(parseISO(t.date), "MMM dd"),
       t.type.charAt(0).toUpperCase() + t.type.slice(1),
       t.description,
       t.category,
-      `$${t.amount.toFixed(2)}`,
+      formatAmount(t.amount),
     ]);
 
     autoTable(doc, {
-      startY: 54,
+      startY: 58,
       head: [["Date", "Type", "Description", "Category", "Amount"]],
       body: rows,
       theme: "grid",
@@ -204,8 +204,7 @@ export default function ExpenseDashboard() {
     doc.save(`finance_${year}_${month}.pdf`);
   };
 
-  const categories =
-    form.type === "income" ? CATEGORIES_INCOME : CATEGORIES_EXPENSE;
+  const categories = form.type === "income" ? CATEGORIES_INCOME : CATEGORIES_EXPENSE;
 
   return (
     <div className={styles.wrapper}>
@@ -213,11 +212,11 @@ export default function ExpenseDashboard() {
       <div className={styles.header}>
         <div>
           <h2 className="text-gradient">Expense Tracker</h2>
-          <p className={styles.subtitle}>Track your income & spending</p>
+          <p className={styles.subtitle}>Track your income &amp; spending</p>
         </div>
         <div className={styles.headerActions}>
           <button onClick={handleDownload} className={styles.downloadBtn}>
-            <Download size={16} /> Export PDF
+            <Download size={16} /> <span>Export PDF</span>
           </button>
         </div>
       </div>
@@ -241,21 +240,21 @@ export default function ExpenseDashboard() {
           <TrendingUp size={22} className={styles.cardIcon} />
           <div>
             <p className={styles.cardLabel}>Total Income</p>
-            <p className={styles.cardAmount}>${totalIncome.toFixed(2)}</p>
+            <p className={styles.cardAmount}>{formatAmount(totalIncome)}</p>
           </div>
         </div>
         <div className={`${styles.summaryCard} ${styles.expenseCard}`}>
           <TrendingDown size={22} className={styles.cardIcon} />
           <div>
             <p className={styles.cardLabel}>Total Expenses</p>
-            <p className={styles.cardAmount}>${totalExpense.toFixed(2)}</p>
+            <p className={styles.cardAmount}>{formatAmount(totalExpense)}</p>
           </div>
         </div>
         <div className={`${styles.summaryCard} ${netBalance >= 0 ? styles.balanceCard : styles.balanceNeg}`}>
           <Wallet size={22} className={styles.cardIcon} />
           <div>
             <p className={styles.cardLabel}>Net Balance</p>
-            <p className={styles.cardAmount}>${netBalance.toFixed(2)}</p>
+            <p className={styles.cardAmount}>{formatAmount(netBalance)}</p>
           </div>
         </div>
       </div>
@@ -287,11 +286,7 @@ export default function ExpenseDashboard() {
                 className={styles.txItem}
               >
                 <div className={`${styles.txIcon} ${t.type === "income" ? styles.txIconIncome : styles.txIconExpense}`}>
-                  {t.type === "income" ? (
-                    <ArrowUpRight size={18} />
-                  ) : (
-                    <ArrowDownRight size={18} />
-                  )}
+                  {t.type === "income" ? <ArrowUpRight size={18} /> : <ArrowDownRight size={18} />}
                 </div>
                 <div className={styles.txDetails}>
                   <p className={styles.txDesc}>{t.description}</p>
@@ -301,21 +296,13 @@ export default function ExpenseDashboard() {
                 </div>
                 <div className={styles.txRight}>
                   <span className={t.type === "income" ? styles.amountIncome : styles.amountExpense}>
-                    {t.type === "income" ? "+" : "-"}${t.amount.toFixed(2)}
+                    {t.type === "income" ? "+" : "-"}{formatAmount(t.amount)}
                   </span>
                   <div className={styles.txActions}>
-                    <button
-                      className={styles.editBtn}
-                      onClick={() => openEdit(t)}
-                      title="Edit"
-                    >
+                    <button className={styles.editBtn} onClick={() => openEdit(t)} title="Edit">
                       <Pencil size={14} />
                     </button>
-                    <button
-                      className={styles.deleteBtn}
-                      onClick={() => handleDelete(t.id)}
-                      title="Delete"
-                    >
+                    <button className={styles.deleteBtn} onClick={() => handleDelete(t.id)} title="Delete">
                       <Trash2 size={14} />
                     </button>
                   </div>
@@ -378,7 +365,7 @@ export default function ExpenseDashboard() {
                 )}
 
                 <div className={styles.formGroup}>
-                  <label>Amount ($)</label>
+                  <label>Amount ({currency.symbol})</label>
                   <input
                     type="number"
                     step="0.01"

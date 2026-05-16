@@ -450,3 +450,76 @@
 .saveExpense {
   flex: 2;
 }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .wrapper {
+    height: auto;
+    overflow: visible;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .summaryCard {
+    padding: 0.85rem;
+  }
+
+  .cardAmount {
+    font-size: 1.15rem;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .txActions {
+    opacity: 1; /* Always show on touch screens */
+  }
+
+  .txItem {
+    padding: 0.75rem;
+    gap: 0.65rem;
+  }
+
+  .txRight {
+    gap: 0.5rem;
+  }
+
+  .amountIncome, .amountExpense {
+    font-size: 0.85rem;
+  }
+
+  .modal {
+    padding: 1.25rem;
+    border-radius: 16px;
+    margin: 0.5rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .addBtns {
+    gap: 0.5rem;
+  }
+
+  .txSection {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 380px) {
+  .monthLabel {
+    min-width: 120px;
+    font-size: 0.9rem;
+  }
+
+  .addIncome, .addExpense {
+    font-size: 0.82rem;
+    padding: 0.6rem;
+  }
+}

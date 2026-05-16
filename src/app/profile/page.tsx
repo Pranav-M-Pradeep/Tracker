@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { format } from "date-fns";
 import styles from "./page.module.css";
 import { MonitorSmartphone, ShieldCheck } from "lucide-react";
+import CurrencySelector from "@/components/CurrencySelector";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,11 @@ export default async function ProfilePage() {
     orderBy: { lastActive: "desc" },
   });
 
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { currency: true },
+  });
+
   return (
     <div className={styles.profileContainer}>
       <header className={styles.header}>
@@ -32,6 +38,7 @@ export default async function ProfilePage() {
       </header>
 
       <div className={styles.grid}>
+        {/* Account Details */}
         <div className="glass-card">
           <div className={styles.cardHeader}>
             <ShieldCheck size={24} color="#ec4899" />
@@ -49,6 +56,10 @@ export default async function ProfilePage() {
           </div>
         </div>
 
+        {/* Currency Preference */}
+        <CurrencySelector currentCurrency={user?.currency ?? "USD"} />
+
+        {/* Active Devices */}
         <div className="glass-card">
           <div className={styles.cardHeader}>
             <MonitorSmartphone size={24} color="#a855f7" />
@@ -69,9 +80,6 @@ export default async function ProfilePage() {
                     Last active: {format(new Date(s.lastActive), "MMM dd, p")}
                   </p>
                 </div>
-                {s.sessionToken === (session.user as any).sessionToken && (
-                  <span className={styles.currentBadge}>Current</span>
-                )}
               </div>
             ))}
           </div>

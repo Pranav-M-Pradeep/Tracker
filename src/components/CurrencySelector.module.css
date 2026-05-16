@@ -1,0 +1,110 @@
+.card {
+  grid-column: 1 / -1; /* Full width on profile grid */
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.cardHeader h2 {
+  flex: 1;
+  font-size: 1.1rem;
+}
+
+.savingBadge {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.06);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.savedBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: #34d399;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.desc {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.6rem;
+}
+
+.currencyBtn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  padding: 0.75rem 0.9rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  font-family: inherit;
+  color: var(--text-primary);
+}
+
+.currencyBtn:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(168,85,247,0.3);
+}
+
+.active {
+  background: rgba(168,85,247,0.12) !important;
+  border-color: rgba(168,85,247,0.4) !important;
+}
+
+.symbol {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-1);
+}
+
+.code {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.name {
+  font-size: 0.73rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  color: var(--accent-1);
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+}
